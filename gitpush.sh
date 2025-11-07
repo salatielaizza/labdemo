@@ -14,7 +14,7 @@ cd "$REPO_PATH" || exit 1
 git add .
 
 # Check if there are changes to commit
-if git diff-staged --quiet; then
+if git diff --staged --quiet; then
     echo "No changes to commit"
 else
     # Ask for commit message
@@ -29,6 +29,10 @@ else
     
     # Commit with the message
     git commit -m "$COMMIT_MESSAGE"
+    
+    # Pull latest changes first to avoid conflicts
+    echo "Pulling latest changes..."
+    git pull origin "$BRANCH" --rebase
     
     # Push to remote
     git push origin "$BRANCH"
