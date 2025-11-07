@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: test-deploy-http
+  name: test-deploy-http
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: test-deploy-http
+  template:
+    metadata:
+      labels:
+        app: test-deploy-http
+        version: "2"
+    spec:
+      containers:
+        - image: httpd:alpine3.20
+          name: httpd
+  strategy:
+    type: Recreate
+
